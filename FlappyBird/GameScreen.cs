@@ -49,6 +49,8 @@ namespace FlappyBird
             whiteFlashPaint.Color = SKColors.Transparent;
         }
 
+        public bool GameOver { get; private set; }
+
         public override void Start()
         {
             base.Start();
@@ -79,7 +81,7 @@ namespace FlappyBird
             var secs = (float)dt.TotalSeconds;
             var screenRight = Game.DisplaySize.Width;
 
-            if (interactiveMode)
+            if (!GameOver)
             {
                 // move the pipes
                 for (int i = 0; i < pipes.Count; i++)
@@ -117,25 +119,35 @@ namespace FlappyBird
 
                 // crashed into the ground
                 var groundPos = groundLevel - birdGroundOffset;
-                if (scrolling && playerPos.Y > groundPos)
+                if (playerPos.Y > groundPos)
                 {
-                    // stop falling
-                    speed = 0;
-                    acceleration = 0;
+                    GameOver = true;
+
+                    // stop falling through the ground
                     playerPos.Y = groundPos;
+                }
+                else
+                {
+                    // check pipe collisions
+                }
 
-                    // stop game
-                    scrolling = false;
-                    interactiveMode = false;
-
-                    // start the white flash
+                // start the white flash to start the game over animations
+                if (GameOver)
+                {
                     whiteFlash.Start(1f, 0f, Animator.Interpolations.Decelerate, FlashDuration);
                 }
             }
 
-            // the scrolling has stopped, thus we assume the game is over
-            if (!interactiveMode && !scrolling)
+            if (GameOver)
             {
+                // stop falling
+                speed = 0;
+                acceleration = 0;
+
+                // stop game
+                scrolling = false;
+                interactiveMode = false;
+
                 if (!whiteFlash.Finished)
                 {
                     // we are flashing
@@ -216,6 +228,7 @@ namespace FlappyBird
                     speed = BobbingBird.FlapStrength;
                     acceleration = BobbingBird.Gravity;
                     angleChange = BobbingBird.InitialRotationAcceleration;
+                    angleAcceleration = BobbingBird.RotationAcceleration;
                 }
             }
 

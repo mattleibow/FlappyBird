@@ -24,6 +24,7 @@ namespace FlappyBird
         protected float acceleration;
         protected float angle;
         protected float angleChange;
+        protected float angleAcceleration;
 
         protected bool interactiveMode;
         protected bool scrolling;
@@ -67,12 +68,12 @@ namespace FlappyBird
                 // move the bird up/down
                 speed = Math.Min(speed + acceleration, BobbingBird.MaxSpeed);
                 playerPos.Y += speed * secs;
-
-                // rotate to the direction  of travel
-                angle += angleChange;
-                angleChange += BobbingBird.RotationAcceleration * secs;
-                angle = Math.Min(Math.Max(BobbingBird.MaxUpRotation, angle), BobbingBird.MaxDownRotation);
             }
+
+            // rotate to the direction  of travel
+            angle += angleChange;
+            angleChange += angleAcceleration * secs;
+            angle = Math.Min(Math.Max(BobbingBird.MaxUpRotation, angle), BobbingBird.MaxDownRotation);
         }
 
         public override void Resize(int width, int height)
