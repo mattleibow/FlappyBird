@@ -17,6 +17,14 @@ namespace FlappyBird.GameEngine
 
         public SpriteSheet SpriteSheet { get; private set; }
 
+        public virtual void TouchDown(SKPointI point)
+        {
+        }
+
+        public virtual void TouchUp(SKPointI point)
+        {
+        }
+
         public virtual void Update(TimeSpan dt)
         {
         }
@@ -35,15 +43,6 @@ namespace FlappyBird.GameEngine
 
         public virtual void Start()
         {
-        }
-
-        public bool HitTest(SKPoint hit, SKPoint location, SKSize size)
-        {
-            return
-                hit.X >= location.X &&
-                hit.Y >= location.Y &&
-                hit.X <= location.X + size.Width &&
-                hit.Y <= location.Y + size.Height;
         }
     }
 }

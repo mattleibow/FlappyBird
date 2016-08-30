@@ -9,23 +9,22 @@ namespace FlappyBird
     {
         private const float GrassHeight = 22f;
 
-        private readonly Sprite playButton;
-        private readonly Sprite scoresButton;
-        private readonly Sprite rateButton;
+        private readonly ButtonSprite playButton;
+        private readonly ButtonSprite scoresButton;
+        private readonly ButtonSprite rateButton;
         private readonly Sprite title;
         private readonly Sprite copyright;
 
         private SKPoint titlePos;
         private SKPoint ratePos;
-        private SKPoint playPos;
         private SKPoint scoresPos;
 
         public WelcomeScreen(FlappyBirdGame game, SpriteSheet spriteSheet)
             : base(game, spriteSheet)
         {
-            playButton = SpriteSheet.Sprites[FlappyBirdSprites.button_play];
-            scoresButton = SpriteSheet.Sprites[FlappyBirdSprites.button_score];
-            rateButton = SpriteSheet.Sprites[FlappyBirdSprites.button_rate];
+            playButton = new ButtonSprite(SpriteSheet.Sprites[FlappyBirdSprites.button_play]);
+            scoresButton = new ButtonSprite(SpriteSheet.Sprites[FlappyBirdSprites.button_score]);
+            rateButton = new ButtonSprite(SpriteSheet.Sprites[FlappyBirdSprites.button_rate]);
             title = SpriteSheet.Sprites[FlappyBirdSprites.title];
             copyright = SpriteSheet.Sprites[FlappyBirdSprites.brand_copyright];
         }
@@ -51,13 +50,13 @@ namespace FlappyBird
             playerPos = new SKPoint(width / 2f, groundLevel / 2f);
 
             // rate button
-            ratePos = new SKPoint((width - rateButton.Size.Width) / 2f, groundLevel / 1.5f);
+            rateButton.Location = new SKPoint((width - rateButton.Size.Width) / 2f, groundLevel / 1.5f);
 
             // play + scores buttons
             var buttonSpace = (width - playButton.Size.Width - scoresButton.Size.Width) / 3f;
-            playPos = new SKPoint(buttonSpace, groundLevel - playButton.Size.Height + FlappyBirdGame.ButtonShadowBorder.Bottom);
+            playButton.Location = new SKPoint(buttonSpace, groundLevel - playButton.Size.Height + FlappyBirdGame.ButtonShadowBorder.Bottom);
             buttonSpace += playButton.Size.Width + buttonSpace;
-            scoresPos = new SKPoint(buttonSpace, groundLevel - scoresButton.Size.Height + FlappyBirdGame.ButtonShadowBorder.Bottom);
+            scoresButton.Location = new SKPoint(buttonSpace, groundLevel - scoresButton.Size.Height + FlappyBirdGame.ButtonShadowBorder.Bottom);
         }
 
         protected override void DrawForeground(SKCanvas canvas)
@@ -68,11 +67,11 @@ namespace FlappyBird
             title.Draw(canvas, titlePos.X, titlePos.Y);
 
             // rate button
-            rateButton.Draw(canvas, ratePos.X, ratePos.Y);
+            rateButton.Draw(canvas);
 
             // play + scores buttons
-            playButton.Draw(canvas, playPos.X, playPos.Y);
-            scoresButton.Draw(canvas, scoresPos.X, scoresPos.Y);
+            playButton.Draw(canvas);
+            scoresButton.Draw(canvas);
         }
 
         public override void Draw(SKCanvas canvas)
@@ -82,19 +81,37 @@ namespace FlappyBird
             copyright.Draw(canvas, (Game.DisplaySize.Width - copyright.Size.Width) / 2f, groundLevel + GrassHeight);
         }
 
+        public override void TouchDown(SKPointI point)
+        {
+            base.TouchDown(point);
+
+            playButton.TouchDown(point);
+            scoresButton.TouchDown(point);
+            rateButton.TouchDown(point);
+        }
+
+        public override void TouchUp(SKPointI point)
+        {
+            base.TouchUp(point);
+
+            playButton.TouchUp(point);
+            scoresButton.TouchUp(point);
+            rateButton.TouchUp(point);
+        }
+
         public override void Tap(SKPointI point)
         {
             base.Tap(point);
 
-            if (HitTest(point, ratePos, rateButton.Size))
+            if (rateButton.HitTest(point))
             {
                 RatingsTapped?.Invoke(this, EventArgs.Empty);
             }
-            else if (HitTest(point, playPos, playButton.Size))
+            else if (playButton.HitTest(point))
             {
                 PlayTapped?.Invoke(this, EventArgs.Empty);
             }
-            else if (HitTest(point, scoresPos, scoresButton.Size))
+            else if (scoresButton.HitTest(point))
             {
                 ScoresTapped?.Invoke(this, EventArgs.Empty);
             }

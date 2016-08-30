@@ -114,5 +114,23 @@ namespace FlappyBird.GameEngine
                 currentScreen?.Tap(point);
             }
         }
+
+        public virtual void TouchDown(SKPointI point)
+        {
+            // interaction only when not transitioning
+            if (!Transitioning)
+            {
+                currentScreen?.TouchDown(point);
+            }
+        }
+
+        public virtual void TouchUp(SKPointI point)
+        {
+            // interaction only when not transitioning
+            if (!Transitioning)
+            {
+                currentScreen?.TouchUp(point);
+            }
+        }
     }
 }
