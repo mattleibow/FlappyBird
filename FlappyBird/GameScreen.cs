@@ -146,6 +146,9 @@ namespace FlappyBird
                 {
                     // show game over now
                     gameOver.Show();
+
+                    // and clean up game ites
+                    score.Visible = false;
                 }
             }
         }
