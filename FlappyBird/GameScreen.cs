@@ -20,7 +20,7 @@ namespace FlappyBird
 
         private readonly Sprite pipeUp;
         private readonly Sprite pipeDown;
-        private readonly AnimatedSpriteNumber score;
+        private readonly SpriteNumber score;
 
         private readonly List<SKPoint> pipes;
         private readonly float pipeWidth;
@@ -36,7 +36,7 @@ namespace FlappyBird
         {
             pipeUp = SpriteSheet.Sprites[FlappyBirdSprites.pipe_up];
             pipeDown = SpriteSheet.Sprites[FlappyBirdSprites.pipe_down];
-            score = new AnimatedSpriteNumber(SpriteSheet.Sprites, FlappyBirdSprites.Formats.font);
+            score = new SpriteNumber(SpriteSheet.Sprites, FlappyBirdSprites.Formats.font);
 
             pipes = new List<SKPoint>();
             pipeWidth = Math.Max(pipeUp.Size.Width, pipeDown.Size.Width);
@@ -73,7 +73,6 @@ namespace FlappyBird
             // update child objects
             tutorial.Update(dt);
             gameOver.Update(dt);
-            score.Update(dt);
             whiteFlash.Update(dt);
 
             // update this screen
