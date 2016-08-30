@@ -89,6 +89,30 @@ namespace FlappyBird.Desktop
                 game.Start();
             }
 
+            protected override void OnMouseDown(MouseEventArgs e)
+            {
+                base.OnMouseDown(e);
+
+                if (!enabled)
+                {
+                    return;
+                }
+
+                game.TouchDown(new SKPointI((int)(e.X / scaling.X), (int)(e.Y / scaling.Y)));
+            }
+
+            protected override void OnMouseUp(MouseEventArgs e)
+            {
+                base.OnMouseUp(e);
+
+                if (!enabled)
+                {
+                    return;
+                }
+
+                game.TouchUp(new SKPointI((int)(e.X / scaling.X), (int)(e.Y / scaling.Y)));
+            }
+
             protected override void OnMouseClick(MouseEventArgs e)
             {
                 base.OnMouseClick(e);
