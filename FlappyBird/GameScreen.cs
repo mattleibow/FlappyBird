@@ -167,7 +167,7 @@ namespace FlappyBird
         {
             base.DrawForeground(canvas);
 
-            score.Draw(canvas, (Game.DisplaySize.Width - score.Width) / 2f, 60);
+            score.Draw(canvas, (Game.DisplaySize.Width - score.Width) / 2f, groundLevel / 6f);
 
             tutorial.Draw(canvas);
             gameOver.Draw(canvas);
