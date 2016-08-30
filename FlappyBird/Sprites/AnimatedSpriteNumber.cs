@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using SkiaSharp;
 
-namespace FlappyBird
+using FlappyBird.GameEngine;
+
+namespace FlappyBird.Sprites
 {
     public class AnimatedSpriteNumber
     {

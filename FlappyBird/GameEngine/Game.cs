@@ -2,17 +2,11 @@
 using System.Threading.Tasks;
 using SkiaSharp;
 
-namespace FlappyBird
+namespace FlappyBird.GameEngine
 {
-    public class Game
+    public abstract class Game
     {
-        public const float ForwardSpeed = 2f / 0.015f;
-        public static readonly SKRectI ButtonShadowBorder = new SKRectI(6, 2, 6, 10); // real button size: 104x57; sprite size: 116x70
-
         private const float FadeSpeed = 0.5f; // seconds
-
-        // game data
-        private SpriteSheet spriteSheet;
 
         // screens
         private Screen currentScreen;
@@ -24,26 +18,36 @@ namespace FlappyBird
 
         public Game()
         {
-            spriteSheet = new SpriteSheet("Media/Graphics/atlas.png", "Media/Data/atlas.txt");
-
             fadePaint = new SKPaint();
             fadePaint.Color = SKColors.Transparent;
         }
 
         public SKSize DisplaySize { get; private set; }
 
-        public async Task LoadContentAsync()
+        public bool Transitioning => transitionScreen != null;
+
+        public Screen CurrentScreen
         {
-            await spriteSheet.LoadAsync();
-
-            var welcomeScreen = new WelcomeScreen(this, spriteSheet);
-            welcomeScreen.PlayTapped += StartNewGame;
-
-            currentScreen = new GameScreen(this, spriteSheet);
-            //currentScreen = welcomeScreen;
+            get { return currentScreen; }
+            set { currentScreen = value; }
         }
 
-        public void Resize(int width, int height)
+        public Screen TransitionScreen => transitionScreen;
+
+        protected void TransisionTo(Screen screen)
+        {
+            transitionScreen = screen;
+
+            fadeProgress = 0;
+            transitionScreen = screen;
+        }
+
+        public virtual Task LoadContentAsync()
+        {
+            return Task.FromResult(true);
+        }
+
+        public virtual void Resize(int width, int height)
         {
             DisplaySize = new SKSize(width, height);
 
@@ -52,13 +56,13 @@ namespace FlappyBird
             transitionScreen?.Resize(width, height);
         }
 
-        public void Update(TimeSpan dt)
+        public virtual void Update(TimeSpan dt)
         {
             // update the current screen
             currentScreen?.Update(dt);
 
             // update the fade transition
-            if (transitionScreen != null)
+            if (Transitioning)
             {
                 var step = (float)dt.TotalSeconds / FadeSpeed;
                 if (currentScreen != transitionScreen && currentScreen != null)
@@ -85,39 +89,30 @@ namespace FlappyBird
             }
         }
 
-        public void Start()
+        public virtual void Start()
         {
             currentScreen?.Start();
         }
 
-        public void Draw(SKCanvas canvas)
+        public virtual void Draw(SKCanvas canvas)
         {
             currentScreen?.Draw(canvas);
 
             // draw the black over the screen
-            if (transitionScreen != null)
+            if (Transitioning)
             {
                 fadePaint.Color = SKColors.Black.WithAlpha((byte)(fadeProgress * byte.MaxValue));
                 canvas.DrawRect(SKRect.Create(DisplaySize.Width, DisplaySize.Height), fadePaint);
             }
         }
 
-        public void Tap(SKPointI point)
+        public virtual void Tap(SKPointI point)
         {
             // interaction only when not transitioning
-            if (transitionScreen == null)
+            if (!Transitioning)
             {
                 currentScreen?.Tap(point);
             }
-        }
-
-        private void StartNewGame(object sender, EventArgs e)
-        {
-            var screen = new GameScreen(this, spriteSheet);
-            //screen.PlayTapped += StartNewGame;
-
-            fadeProgress = 0;
-            transitionScreen = screen;
         }
     }
 }

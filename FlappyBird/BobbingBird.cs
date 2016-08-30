@@ -2,6 +2,8 @@
 using System.Linq;
 using SkiaSharp;
 
+using FlappyBird.Sprites;
+
 namespace FlappyBird
 {
     public class BobbingBird

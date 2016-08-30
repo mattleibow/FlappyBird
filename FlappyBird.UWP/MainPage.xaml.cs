@@ -24,14 +24,14 @@ namespace FlappyBird.UWP
     public sealed partial class MainPage : Page
     {
         private readonly FlappyBirdControl flappyBirdControl;
-        private readonly Game game;
+        private readonly FlappyBirdGame game;
 
         public MainPage()
         {
             this.InitializeComponent();
 
             // Game
-            game = new Game();
+            game = new FlappyBirdGame();
 
             // View
             flappyBirdControl = new FlappyBirdControl(game, new SKSizeI(288, 512));
@@ -51,13 +51,13 @@ namespace FlappyBird.UWP
 
         private class FlappyBirdControl : SkiaControl
         {
-            private readonly Game game;
+            private readonly FlappyBirdGame game;
             private readonly SKSizeI baseSize;
             private readonly DispatcherTimer timer;
 
             private int milliseconds = 0;
 
-            public FlappyBirdControl(Game game, SKSizeI baseSize)
+            public FlappyBirdControl(FlappyBirdGame game, SKSizeI baseSize)
             {
                 this.game = game;
                 this.baseSize = baseSize;

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using SkiaSharp;
 
-namespace FlappyBird
+namespace FlappyBird.Sprites
 {
     public class SpriteSheet
     {

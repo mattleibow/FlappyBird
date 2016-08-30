@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FlappyBird
+namespace FlappyBird.GameEngine
 {
     public delegate double InterperlatorDelegate(double progress);
 

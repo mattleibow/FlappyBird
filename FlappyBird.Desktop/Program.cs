@@ -20,7 +20,7 @@ namespace FlappyBird.Desktop
         private class FlappyBirdForm : Form
         {
             private readonly FlappyBirdControl flappyBirdControl;
-            private readonly Game game;
+            private readonly FlappyBirdGame game;
 
             public FlappyBirdForm()
             {
@@ -35,7 +35,7 @@ namespace FlappyBird.Desktop
                 }
 
                 // Game
-                game = new Game();
+                game = new FlappyBirdGame();
 
                 // Form
                 AutoScaleDimensions = new SizeF(192F, 192F);
@@ -66,13 +66,13 @@ namespace FlappyBird.Desktop
 
         private class FlappyBirdControl : SkiaControl
         {
-            private readonly Game game;
+            private readonly FlappyBirdGame game;
             private readonly SKPoint scaling;
 
             private bool enabled;
             private int milliseconds = 0;
 
-            public FlappyBirdControl(Game game, SKPoint scaling)
+            public FlappyBirdControl(FlappyBirdGame game, SKPoint scaling)
             {
                 this.game = game;
                 this.scaling = scaling;

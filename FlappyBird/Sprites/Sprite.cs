@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace FlappyBird
+namespace FlappyBird.Sprites
 {
     public class Sprite
     {

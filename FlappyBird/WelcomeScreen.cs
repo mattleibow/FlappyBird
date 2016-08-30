@@ -1,6 +1,8 @@
 using System;
 using SkiaSharp;
 
+using FlappyBird.Sprites;
+
 namespace FlappyBird
 {
     public class WelcomeScreen : ScrollingGroundScreen
@@ -18,7 +20,7 @@ namespace FlappyBird
         private SKPoint playPos;
         private SKPoint scoresPos;
 
-        public WelcomeScreen(Game game, SpriteSheet spriteSheet)
+        public WelcomeScreen(FlappyBirdGame game, SpriteSheet spriteSheet)
             : base(game, spriteSheet)
         {
             playButton = SpriteSheet.Sprites[FlappyBirdSprites.button_play];
@@ -53,9 +55,9 @@ namespace FlappyBird
 
             // play + scores buttons
             var buttonSpace = (width - playButton.Size.Width - scoresButton.Size.Width) / 3f;
-            playPos = new SKPoint(buttonSpace, groundLevel - playButton.Size.Height + Game.ButtonShadowBorder.Bottom);
+            playPos = new SKPoint(buttonSpace, groundLevel - playButton.Size.Height + FlappyBirdGame.ButtonShadowBorder.Bottom);
             buttonSpace += playButton.Size.Width + buttonSpace;
-            scoresPos = new SKPoint(buttonSpace, groundLevel - scoresButton.Size.Height + Game.ButtonShadowBorder.Bottom);
+            scoresPos = new SKPoint(buttonSpace, groundLevel - scoresButton.Size.Height + FlappyBirdGame.ButtonShadowBorder.Bottom);
         }
 
         protected override void DrawForeground(SKCanvas canvas)

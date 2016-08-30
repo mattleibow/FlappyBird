@@ -1,6 +1,6 @@
 using System;
 
-namespace FlappyBird
+namespace FlappyBird.Sprites
 {
     public class SpriteAnimation
     {

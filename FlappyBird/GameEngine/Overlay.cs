@@ -1,7 +1,9 @@
 ﻿using System;
 using SkiaSharp;
 
-namespace FlappyBird
+using FlappyBird.Sprites;
+
+namespace FlappyBird.GameEngine
 {
     public class Overlay
     {

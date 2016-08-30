@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using SkiaSharp;
 
-namespace FlappyBird
+namespace FlappyBird.Sprites
 {
     public static class MediaLoader
     {

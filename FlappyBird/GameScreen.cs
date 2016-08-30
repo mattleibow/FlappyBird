@@ -4,6 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using SkiaSharp;
 
+using FlappyBird.GameEngine;
+using FlappyBird.Sprites;
+
 namespace FlappyBird
 {
     public class GameScreen : ScrollingGroundScreen
@@ -83,7 +86,7 @@ namespace FlappyBird
                 for (int i = 0; i < pipes.Count; i++)
                 {
                     var pipe = pipes[i];
-                    pipe.X -= Game.ForwardSpeed * secs;
+                    pipe.X -= FlappyBirdGame.ForwardSpeed * secs;
 
                     if (pipe.X + pipeWidth < 0)
                     {

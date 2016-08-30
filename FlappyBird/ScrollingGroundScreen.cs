@@ -1,6 +1,9 @@
 ﻿using System;
 using SkiaSharp;
 
+using FlappyBird.GameEngine;
+using FlappyBird.Sprites;
+
 namespace FlappyBird
 {
     public class ScrollingGroundScreen : Screen
@@ -55,7 +58,7 @@ namespace FlappyBird
 
             if (scrolling)
             {
-                scrollPosition -= Game.ForwardSpeed * secs;
+                scrollPosition -= FlappyBirdGame.ForwardSpeed * secs;
                 scrollPosition = scrollPosition % screenRight;
             }
 
