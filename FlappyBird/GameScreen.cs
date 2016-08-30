@@ -231,10 +231,6 @@ namespace FlappyBird
                     angleAcceleration = BobbingBird.RotationAcceleration;
                 }
             }
-
-            PlayTapped?.Invoke(this, EventArgs.Empty);
         }
-
-        public event EventHandler PlayTapped;
     }
 }
