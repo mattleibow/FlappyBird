@@ -16,6 +16,11 @@ namespace FlappyBird.Sprites
 
         private int value;
 
+        public SpriteNumber(Dictionary<string, Sprite> sprites, Func<int, string> numberFormatter, string period = null)
+            : this(Enumerable.Range(0, 10).Select(i => sprites[numberFormatter(i)]), period != null ? sprites[period] : null)
+        {
+        }
+
         public SpriteNumber(IEnumerable<Sprite> digits, Sprite period = null)
         {
             this.digits = digits.ToArray();
@@ -24,6 +29,7 @@ namespace FlappyBird.Sprites
             DigitWidth = this.digits.Max(d => d.Size.Width);
             DigitHeight = this.digits.Max(d => d.Size.Height);
             Value = 0;
+            Visible = true;
         }
 
         public int Value
@@ -44,6 +50,8 @@ namespace FlappyBird.Sprites
             }
         }
 
+        public bool Visible { get; set; }
+
         public float DigitWidth { get; private set; }
 
         public float DigitHeight { get; private set; }
@@ -56,13 +64,16 @@ namespace FlappyBird.Sprites
 
         public void Draw(SKCanvas canvas, float x, float y)
         {
-            var offset = 0f;
-            foreach (var sprite in DigitSprites)
+            if (Visible)
             {
-                var left = x + offset + (DigitWidth - sprite.Size.Width);
-                var top = y + (DigitHeight - sprite.Size.Height);
-                sprite.Draw(canvas, left, top);
-                offset += DigitWidth + DigitSpace;
+                var offset = 0f;
+                foreach (var sprite in DigitSprites)
+                {
+                    var left = x + offset + (DigitWidth - sprite.Size.Width);
+                    var top = y + (DigitHeight - sprite.Size.Height);
+                    sprite.Draw(canvas, left, top);
+                    offset += DigitWidth + DigitSpace;
+                }
             }
         }
     }

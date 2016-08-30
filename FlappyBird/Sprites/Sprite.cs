@@ -12,6 +12,7 @@ namespace FlappyBird.Sprites
             SpriteSheet = sheet;
             Size = size;
             SourceBounds = bounds;
+            Visible = true;
 
             paint = new SKPaint();
         }
@@ -26,6 +27,8 @@ namespace FlappyBird.Sprites
 
         public SKBitmap Bitmap => SpriteSheet.Bitmap;
 
+        public bool Visible { get; set; }
+
         public void Draw(SKCanvas canvas, float x, float y)
         {
             Draw(canvas, x, y, null);
@@ -33,17 +36,23 @@ namespace FlappyBird.Sprites
 
         public void Draw(SKCanvas canvas, float x, float y, byte opacity = 255)
         {
-            using (var cf = SKColorFilter.CreateXferMode(SKColors.White.WithAlpha(opacity), SKXferMode.DstIn))
+            if (Visible)
             {
-                paint.ColorFilter = cf;
-                Draw(canvas, x, y, paint);
-                paint.ColorFilter = null;
+                using (var cf = SKColorFilter.CreateXferMode(SKColors.White.WithAlpha(opacity), SKXferMode.DstIn))
+                {
+                    paint.ColorFilter = cf;
+                    Draw(canvas, x, y, paint);
+                    paint.ColorFilter = null;
+                }
             }
         }
 
         public void Draw(SKCanvas canvas, float x, float y, SKPaint paint = null)
         {
-            canvas.DrawBitmap(Bitmap, SourceBounds, SKRect.Create(x, y, Size.Width, Size.Height), paint);
+            if (Visible)
+            {
+                canvas.DrawBitmap(Bitmap, SourceBounds, SKRect.Create(x, y, Size.Width, Size.Height), paint);
+            }
         }
     }
 }

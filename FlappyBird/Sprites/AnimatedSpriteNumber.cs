@@ -16,9 +16,7 @@ namespace FlappyBird.Sprites
 
         public AnimatedSpriteNumber(Dictionary<string, Sprite> sprites, Func<int, string> numberFormatter, string dot = null)
         {
-            sprite = new SpriteNumber(
-                Enumerable.Range(0, 10).Select(i => sprites[numberFormatter(i)]),
-                dot != null ? sprites[dot] : null);
+            sprite = new SpriteNumber(sprites, numberFormatter, dot);
 
             counter = new Animator();
         }
@@ -40,6 +38,12 @@ namespace FlappyBird.Sprites
         public float Width => sprite.Width;
 
         public float Height => sprite.Height;
+
+        public bool Visible
+        {
+            get { return sprite.Visible; }
+            set { sprite.Visible = value; }
+        }
 
         public void Update(TimeSpan dt)
         {
