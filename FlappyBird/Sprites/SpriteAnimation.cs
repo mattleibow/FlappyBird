@@ -23,7 +23,11 @@ namespace FlappyBird.Sprites
         public int CurrentFrame
         {
             get { return currentFrame; }
-            set { currentFrame = value % Frames.Length; }
+            set
+            {
+                currentFrame = value % Frames.Length;
+                progress = currentFrame / Speed;
+            }
         }
 
         public void Update(TimeSpan dt)
@@ -38,7 +42,7 @@ namespace FlappyBird.Sprites
                     progress = 0;
                     Enabled = false;
                 }
-                CurrentFrame = frame;
+                currentFrame = frame % Frames.Length;
             }
         }
     }

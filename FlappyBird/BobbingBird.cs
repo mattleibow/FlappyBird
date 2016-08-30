@@ -74,6 +74,7 @@ namespace FlappyBird
         public void StartFlapping()
         {
             Bobbing = false;
+            birdAnimation.CurrentFrame = 0;
             birdAnimation.Speed = FastFlapSpeed;
             birdAnimation.Looping = false;
             birdAnimation.Enabled = true;
