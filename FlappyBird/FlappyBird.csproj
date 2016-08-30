@@ -49,6 +49,7 @@
     <Compile Include="BobbingBird.cs" />
     <Compile Include="FlappyBirdSprites.cs" />
     <Compile Include="GameEngine\Game.cs" />
+    <Compile Include="Sprites\ButtonSprite.cs" />
     <Compile Include="Sprites\MediaLoader.cs" />
     <Compile Include="GameEngine\Overlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
