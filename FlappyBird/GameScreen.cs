@@ -83,37 +83,41 @@ namespace FlappyBird
 
             if (!GameOver)
             {
-                // move the pipes
-                for (int i = 0; i < pipes.Count; i++)
+                // only start with the pipes once the bird is flapping
+                if (interactiveMode)
                 {
-                    var pipe = pipes[i];
-                    pipe.X -= FlappyBirdGame.ForwardSpeed * secs;
-
-                    if (pipe.X + pipeWidth < 0)
+                    // move the pipes
+                    for (int i = 0; i < pipes.Count; i++)
                     {
-                        // remove offscreen pipes
-                        pipes.RemoveAt(i);
-                        i--;
+                        var pipe = pipes[i];
+                        pipe.X -= FlappyBirdGame.ForwardSpeed * secs;
+
+                        if (pipe.X + pipeWidth < 0)
+                        {
+                            // remove offscreen pipes
+                            pipes.RemoveAt(i);
+                            i--;
+                        }
+                        else
+                        {
+                            // update position
+                            pipes[i] = pipe;
+                        }
+                    }
+
+                    // add new pipes
+                    var hole = random.Next(ShortestPipe, (int)groundLevel - ShortestPipe);
+                    if (pipes.Count == 0)
+                    {
+                        pipes.Add(new SKPoint(screenRight + PipeOffset, hole));
                     }
                     else
                     {
-                        // update position
-                        pipes[i] = pipe;
-                    }
-                }
-
-                // add new pipes
-                var hole = random.Next(ShortestPipe, (int)groundLevel - ShortestPipe);
-                if (pipes.Count == 0)
-                {
-                    pipes.Add(new SKPoint(screenRight + PipeOffset, hole));
-                }
-                else
-                {
-                    var last = pipes[pipes.Count - 1];
-                    if (last.X + pipeWidth < screenRight)
-                    {
-                        pipes.Add(new SKPoint(screenRight + PipeGap, hole));
+                        var last = pipes[pipes.Count - 1];
+                        if (last.X + pipeWidth < screenRight)
+                        {
+                            pipes.Add(new SKPoint(screenRight + PipeGap, hole));
+                        }
                     }
                 }
 
