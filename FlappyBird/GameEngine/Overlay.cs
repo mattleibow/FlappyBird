@@ -7,10 +7,11 @@ namespace FlappyBird.GameEngine
 {
     public class Overlay
     {
-        public Overlay(Game game, SpriteSheet spriteSheet)
+        public Overlay(Game game, SpriteSheet spriteSheet, bool hidden = false)
         {
             Game = game;
             SpriteSheet = spriteSheet;
+            Visible = !hidden;
         }
 
         public Game Game { get; private set; }

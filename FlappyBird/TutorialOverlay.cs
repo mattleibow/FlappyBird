@@ -20,8 +20,8 @@ namespace FlappyBird
         private SKPoint tutorialPos;
         private byte alpha;
 
-        public TutorialOverlay(Game game, SpriteSheet spriteSheet)
-            : base(game, spriteSheet)
+        public TutorialOverlay(Game game, SpriteSheet spriteSheet, bool hidden = false)
+            : base(game, spriteSheet, hidden)
         {
             tutorial = SpriteSheet.Sprites[FlappyBirdSprites.tutorial];
             getReady = SpriteSheet.Sprites[FlappyBirdSprites.text_ready];

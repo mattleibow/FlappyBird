@@ -24,8 +24,8 @@ namespace FlappyBird
         private float offset;
         private float offsetSpeed;
 
-        public GameOverOverlay(Game game, SpriteSheet spriteSheet)
-            : base(game, spriteSheet)
+        public GameOverOverlay(Game game, SpriteSheet spriteSheet, bool hidden = true)
+            : base(game, spriteSheet, hidden)
         {
             gameOver = SpriteSheet.Sprites[FlappyBirdSprites.text_game_over];
             land = SpriteSheet.Sprites[FlappyBirdSprites.land];
