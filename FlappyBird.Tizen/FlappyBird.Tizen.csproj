@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk/2.0.31">
+
+  <PropertyGroup>
+    <TargetFramework>tizen40</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <DefineConstants>$(DefineConstants);__TIZEN__;</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.540366" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1-rc.489" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlappyBird.GameEngine\FlappyBird.GameEngine.csproj" />
+    <ProjectReference Include="..\FlappyBird\FlappyBird.csproj" />
+  </ItemGroup>
+
+</Project>

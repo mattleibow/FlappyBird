@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.0.0.540366" />
+    <PackageReference Include="SkiaSharp.Views.Forms.WPF" Version="1.68.1-rc.489" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlappyBird.GameEngine\FlappyBird.GameEngine.csproj" />
+    <ProjectReference Include="..\FlappyBird\FlappyBird.csproj" />
+  </ItemGroup>
+
+</Project>

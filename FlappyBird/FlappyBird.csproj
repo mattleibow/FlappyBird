@@ -1,87 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FDD8C9FD-4E93-4227-ACD8-D804F1BD9C30}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FlappyBird</RootNamespace>
-    <AssemblyName>FlappyBird</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.540366" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1-rc.489" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlappyBird.GameEngine\FlappyBird.GameEngine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Media\Audio\sfx_die.ogg" />
     <EmbeddedResource Include="Media\Audio\sfx_hit.ogg" />
     <EmbeddedResource Include="Media\Audio\sfx_point.ogg" />
     <EmbeddedResource Include="Media\Audio\sfx_swooshing.ogg" />
     <EmbeddedResource Include="Media\Audio\sfx_wing.ogg" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="FlappyBirdGame.cs" />
-    <Compile Include="Sprites\AnimatedSpriteNumber.cs" />
-    <Compile Include="GameEngine\Animator.cs" />
-    <Compile Include="BobbingBird.cs" />
-    <Compile Include="FlappyBirdSprites.cs" />
-    <Compile Include="GameEngine\Game.cs" />
-    <Compile Include="Sprites\ButtonSprite.cs" />
-    <Compile Include="Sprites\MediaLoader.cs" />
-    <Compile Include="GameEngine\Overlay.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameEngine\Screen.cs" />
-    <Compile Include="ScrollingGroundScreen.cs" />
-    <Compile Include="Sprites\Sprite.cs" />
-    <Compile Include="Sprites\SpriteAnimation.cs" />
-    <Compile Include="Sprites\SpriteSheet.cs" />
-    <Compile Include="GameScreen.cs" />
-    <Compile Include="Sprites\SpriteNumber.cs" />
-    <Compile Include="GameOverOverlay.cs" />
-    <Compile Include="TutorialOverlay.cs" />
-    <Compile Include="WelcomeScreen.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Media\Data\atlas.txt" />
     <EmbeddedResource Include="Media\Graphics\atlas.png" />
     <EmbeddedResource Include="Media\Graphics\splash.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="SkiaSharp, Version=1.53.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\SkiaSharp.1.53.1.2\lib\portable-net45+xamarinmac+xamarinios+monotouch+monoandroid+win8+wpa81+wp8+xamarin.watchos+xamarin.tvos\SkiaSharp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
