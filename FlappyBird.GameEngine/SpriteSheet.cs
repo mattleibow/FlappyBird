@@ -27,8 +27,7 @@ namespace FlappyBird.GameEngine
 				return;
 
 			Atlas = await mediaLoader.LoadTextureAsync(sheetPath);
-			var info = Atlas?.PeekPixels()?.Info ?? SKImageInfo.Empty;
-			if (Atlas == null || info.Width == 0 || info.Height == 0)
+			if (Atlas == null || Atlas.Width == 0 || Atlas.Height == 0)
 				throw new ArgumentException($"Unable to load sprite sheet bitmap '{sheetPath}'.");
 
 			var lines = await mediaLoader.LoadLinesAsync(dataPath, false);
@@ -57,10 +56,10 @@ namespace FlappyBird.GameEngine
 
 				var size = new SKSize(width, height);
 				var bounds = SKRect.Create(
-					(int)Math.Round(x * info.Width),
-					(int)Math.Round(y * info.Height),
-					(int)Math.Round(w * info.Width),
-					(int)Math.Round(h * info.Height));
+					(int)Math.Round(x * Atlas.Width),
+					(int)Math.Round(y * Atlas.Height),
+					(int)Math.Round(w * Atlas.Width),
+					(int)Math.Round(h * Atlas.Height));
 
 				var sprite = new Sprite(this, name, size, bounds);
 				Sprites.Add(name, sprite);

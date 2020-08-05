@@ -51,14 +51,23 @@ namespace FlappyBird
 			game.Update(TimeSpan.FromMilliseconds(newTicks - oldTicks));
 
 			var canvas = e.Surface.Canvas;
-			using (new SKAutoCanvasRestore(canvas, true))
-			{
-				//canvas.Scale(
-				//	e.BackendRenderTarget.Width / baseSize.Width,
-				//	e.BackendRenderTarget.Height / baseSize.Height);
+			canvas.Clear(SKColors.Black);
 
-				game.Draw(canvas);
-			}
+			using var save = new SKAutoCanvasRestore(canvas, true);
+
+			//var scale = Math.Min(
+			//	(float)e.BackendRenderTarget.Width / baseSize.Width,
+			//	(float)e.BackendRenderTarget.Height / baseSize.Height);
+
+			//var screenRect = (SKRect)e.BackendRenderTarget.Rect;
+			//var centeredRect = screenRect.AspectFit(baseSize);
+
+			//canvas.Translate(centeredRect.Location);
+			//canvas.Scale(scale);
+
+			canvas.ClipRect(SKRect.Create(baseSize));
+
+			game.Draw(canvas);
 		}
 
 		private void OnTouch(object sender, SKTouchEventArgs e)

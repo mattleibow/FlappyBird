@@ -89,9 +89,9 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.540366" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.1-rc.489" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.10" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1239" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2-preview.19" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FlappyBird.GameEngine\FlappyBird.GameEngine.csproj">

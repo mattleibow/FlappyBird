@@ -7,7 +7,7 @@ namespace FlappyBird
 	public class GameOverOverlay : Overlay
 	{
 		private const float FlashDuration = 1.0f;
-		private static InterperlatorDelegate FlashInterpolator = Animator.Interpolations.Decelerate;
+		private static readonly InterperlatorDelegate FlashInterpolator = Animator.Interpolations.Decelerate;
 
 		private const float InitialBounceOffset = -1.0f;
 		private const float InitialBounceSpeed = -2.0f / 0.015f;

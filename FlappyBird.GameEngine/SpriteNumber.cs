@@ -31,7 +31,7 @@ namespace FlappyBird.GameEngine
 
 		public int Value
 		{
-			get { return numberValue; }
+			get => numberValue;
 			set
 			{
 				numberValue = Math.Max(0, value);

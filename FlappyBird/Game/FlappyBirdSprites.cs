@@ -4,8 +4,8 @@
 	{
 		public static class Formats
 		{
-			public static string bird(int id, int frame) => $"bird{id.ToString("0")}_{frame.ToString("0")}";
-			public static string font(int number) => $"font_{number.ToString("0")}";
+			public static string bird(int id, int frame) => $"bird{id:0}_{frame:0}";
+			public static string font(int number) => $"font_{number:0}";
 		}
 
 		public const string bg_day = "bg_day";

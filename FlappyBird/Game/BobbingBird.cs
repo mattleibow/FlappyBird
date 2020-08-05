@@ -23,7 +23,7 @@ namespace FlappyBird
 			WingDown
 		}
 
-		private const float degToRad = (float)Math.PI / 180f;
+		private const float DegToRad = (float)Math.PI / 180f;
 		private const float BirdBounceSpeed = 8f / 0.015f;
 		private const float BirdBounceHeight = 4f;
 
@@ -54,11 +54,11 @@ namespace FlappyBird
 			Height = birdAnimation.Frames.Max(f => f.Size.Height);
 		}
 
-		public float Width { get; private set; }
+		public float Width { get; }
 
-		public float Height { get; private set; }
+		public float Height { get; }
 
-		public bool Bobbing { get; set; }
+		public bool Bobbing { get; private set; }
 
 		public float BobOffset { get; set; }
 
@@ -89,22 +89,21 @@ namespace FlappyBird
 				if (birdBounce >= 360f)
 					birdBounce = 0f;
 
-				BobOffset = (float)Math.Sin(birdBounce * degToRad) * BirdBounceHeight;
+				BobOffset = (float)Math.Sin(birdBounce * DegToRad) * BirdBounceHeight;
 			}
 		}
 
 		public void Draw(SKCanvas canvas, float angle, float x, float y)
 		{
+			using var save = new SKAutoCanvasRestore(canvas, true);
+
 			var bird = birdAnimation.Frames[birdAnimation.CurrentFrame];
 
-			using (new SKAutoCanvasRestore(canvas, true))
-			{
-				x = x - (Width / 2f);
-				y = y + BobOffset;
+			x -= Width / 2f;
+			y += BobOffset;
 
-				canvas.RotateDegrees(angle, x + Width / 2f, y + Height / 2f);
-				bird.Draw(canvas, x, y);
-			}
+			canvas.RotateDegrees(angle, x + Width / 2f, y + Height / 2f);
+			bird.Draw(canvas, x, y);
 		}
 	}
 }

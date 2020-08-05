@@ -55,7 +55,7 @@ namespace FlappyBird
 			if (scrolling)
 			{
 				scrollPosition -= FlappyBirdGame.ForwardSpeed * secs;
-				scrollPosition = scrollPosition % Game.DisplaySize.Width;
+				scrollPosition %= Game.DisplaySize.Width;
 			}
 
 			if (interactiveMode)

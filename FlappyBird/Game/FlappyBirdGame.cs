@@ -22,7 +22,7 @@ namespace FlappyBird
 			spriteSheet = new SpriteSheet("Media/Graphics/atlas.png", "Media/Data/atlas.txt");
 		}
 
-		public async override Task LoadContentAsync()
+		public override async Task LoadContentAsync()
 		{
 			await base.LoadContentAsync();
 

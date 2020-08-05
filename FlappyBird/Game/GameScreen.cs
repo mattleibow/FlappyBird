@@ -1,7 +1,7 @@
-﻿using FlappyBird.GameEngine;
-using SkiaSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using FlappyBird.GameEngine;
+using SkiaSharp;
 
 namespace FlappyBird
 {
@@ -201,33 +201,33 @@ namespace FlappyBird
 			base.Tap(point);
 
 			// if we aren't scrolling, then it is game over
-			if (scrolling)
+			if (!scrolling)
+				return;
+
+			// start the flapping if this is the first time tapping
+			if (!interactiveMode)
 			{
-				// start the flapping if this is the first time tapping
-				if (!interactiveMode)
-				{
-					interactiveMode = true;
+				interactiveMode = true;
 
-					// take the current bob and add it to the position
-					// before turing off bobbing
-					playerPos.Y += bobbingBird.BobOffset;
-					bobbingBird.BobOffset = 0f;
+				// take the current bob and add it to the position
+				// before turing off bobbing
+				playerPos.Y += bobbingBird.BobOffset;
+				bobbingBird.BobOffset = 0f;
 
-					tutorial.Hide();
-				}
+				tutorial.Hide();
+			}
 
-				// flap those wings!
-				bobbingBird.StartFlapping();
+			// flap those wings!
+			bobbingBird.StartFlapping();
 
-				// apply flap force
-				if (playerPos.Y > 0)
-				{
-					// a flap cancels all downward momentum
-					speed = BobbingBird.FlapStrength;
-					acceleration = BobbingBird.Gravity;
-					angleChange = BobbingBird.InitialRotationAcceleration;
-					angleAcceleration = BobbingBird.RotationAcceleration;
-				}
+			// apply flap force
+			if (playerPos.Y > 0)
+			{
+				// a flap cancels all downward momentum
+				speed = BobbingBird.FlapStrength;
+				acceleration = BobbingBird.Gravity;
+				angleChange = BobbingBird.InitialRotationAcceleration;
+				angleAcceleration = BobbingBird.RotationAcceleration;
 			}
 		}
 	}

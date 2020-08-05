@@ -22,7 +22,7 @@ namespace FlappyBird.GameEngine
 
 		public int CurrentFrame
 		{
-			get { return currentFrame; }
+			get => currentFrame;
 			set
 			{
 				currentFrame = value % Frames.Length;

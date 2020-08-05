@@ -7,7 +7,7 @@ namespace FlappyBird
 	public class TutorialOverlay : Overlay
 	{
 		private const float TutorialFadeDuration = 0.5f;
-		private static InterperlatorDelegate TutorialFadeInterpolator = Animator.Interpolations.Linear;
+		private static readonly InterperlatorDelegate TutorialFadeInterpolator = Animator.Interpolations.Linear;
 
 		private readonly Sprite tutorial;
 		private readonly Sprite getReady;
