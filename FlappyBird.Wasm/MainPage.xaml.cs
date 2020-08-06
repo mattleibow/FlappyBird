@@ -1,11 +1,13 @@
 ﻿using System;
 using SkiaSharp;
-using SkiaSharp.Views.Forms;
-using Xamarin.Forms;
+using SkiaSharp.Views.UWP;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
-namespace FlappyBird
+namespace FlappyBird.Wasm
 {
-	public partial class MainPage : ContentPage
+	public sealed partial class MainPage : Page
 	{
 		private readonly FlappyBirdGame game;
 		private readonly SKSizeI baseSize;
@@ -27,15 +29,15 @@ namespace FlappyBird
 			_ = game.LoadContentAsync();
 		}
 
-		protected override void OnAppearing()
+		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
-			base.OnAppearing();
+			base.OnNavigatedTo(e);
 
 			game.Resize(baseSize.Width, baseSize.Height);
 
 			milliseconds = Environment.TickCount;
 
-			gameSurface.InvalidateSurface();
+			gameSurface.Invalidate();
 
 			game.Start();
 		}
@@ -75,23 +77,48 @@ namespace FlappyBird
 			game.Draw(canvas);
 		}
 
-		private void OnTouch(object sender, SKTouchEventArgs e)
+		private SKPointI GetLocation(PointerRoutedEventArgs e)
 		{
-			var pos = e.Location;
+			var pos = e.GetCurrentPoint(gameSurface).Position;
+
+			pos.X *= gameSurface.ContentsScale;
+			pos.Y *= gameSurface.ContentsScale;
+
 			var x = (pos.X - offset.X) / scale;
 			var y = (pos.Y - offset.Y) / scale;
 
-			if (e.ActionType == SKTouchAction.Pressed)
-			{
-				game.TouchDown(new SKPointI((int)x, (int)y));
-			}
-			else if (e.ActionType == SKTouchAction.Released)
-			{
-				game.TouchUp(new SKPointI((int)x, (int)y));
-				game.Tap(new SKPointI((int)x, (int)y));
-			}
+			return new SKPointI((int)x, (int)y);
+		}
+
+		private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+		{
+			var pos = GetLocation(e);
+
+			game.TouchDown(pos);
 
 			e.Handled = true;
+		}
+
+		private void OnPointerMoved(object sender, PointerRoutedEventArgs e)
+		{
+		}
+
+		private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+			var pos = GetLocation(e);
+
+			game.TouchUp(pos);
+			game.Tap(pos);
+
+			e.Handled = true;
+		}
+
+		private void OnPointerExited(object sender, PointerRoutedEventArgs e)
+		{
+		}
+
+		private void OnPointerCanceled(object sender, PointerRoutedEventArgs e)
+		{
 		}
 	}
 }
