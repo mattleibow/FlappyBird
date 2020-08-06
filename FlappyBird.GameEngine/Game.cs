@@ -14,15 +14,31 @@ namespace FlappyBird.GameEngine
 		private Screen? currentScreen;
 		private Screen? transitionScreen;
 
+		private SKPaint fpsPaint;
+		private readonly FrameCounter counter;
+
 		public Game()
 		{
 			fadePaint = new SKPaint
 			{
 				Color = SKColors.Transparent
 			};
+			fpsPaint = new SKPaint
+			{
+				Color = SKColors.Black,
+				IsAntialias = true,
+				TextSize = 12
+			};
+			counter = new FrameCounter();
+
+#if DEBUG
+			DrawFrameRate = true;
+#endif
 		}
 
 		public SKSize DisplaySize { get; private set; }
+
+		public bool DrawFrameRate { get; set; }
 
 		public bool Transitioning => TransitionScreen != null;
 
@@ -68,6 +84,13 @@ namespace FlappyBird.GameEngine
 			TransitionScreen?.Resize(width, height);
 		}
 
+		public void Update()
+		{
+			counter.NextFrame();
+
+			Update(counter.Duration);
+		}
+
 		public virtual void Update(TimeSpan dt)
 		{
 			// update the current screen
@@ -100,6 +123,8 @@ namespace FlappyBird.GameEngine
 
 		public virtual void Start()
 		{
+			counter.Restart();
+
 			CurrentScreen?.Start();
 		}
 
@@ -112,6 +137,11 @@ namespace FlappyBird.GameEngine
 			{
 				fadePaint.Color = SKColors.Black.WithAlpha((byte)(fadeProgress * byte.MaxValue));
 				canvas.DrawRect(SKRect.Create(DisplaySize.Width, DisplaySize.Height), fadePaint);
+			}
+
+			if (DrawFrameRate)
+			{
+				canvas.DrawText($"FPS: {counter.Rate:0.0}", 5, fpsPaint.TextSize + 5, fpsPaint);
 			}
 		}
 

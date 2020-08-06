@@ -10,8 +10,6 @@ namespace FlappyBird
 		private readonly FlappyBirdGame game;
 		private readonly SKSizeI baseSize;
 
-		private int milliseconds = 0;
-
 		private float scale = 1;
 		private SKPoint offset = SKPoint.Empty;
 
@@ -33,8 +31,6 @@ namespace FlappyBird
 
 			game.Resize(baseSize.Width, baseSize.Height);
 
-			milliseconds = Environment.TickCount;
-
 			gameSurface.InvalidateSurface();
 
 			game.Start();
@@ -47,11 +43,7 @@ namespace FlappyBird
 
 		private void OnPaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
 		{
-			var oldTicks = milliseconds;
-			var newTicks = Environment.TickCount;
-			milliseconds = newTicks;
-
-			game.Update(TimeSpan.FromMilliseconds(newTicks - oldTicks));
+			game.Update();
 
 			var canvas = e.Surface.Canvas;
 			canvas.Clear(SKColors.Black);
