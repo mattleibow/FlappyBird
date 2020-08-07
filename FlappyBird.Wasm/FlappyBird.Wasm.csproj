@@ -19,7 +19,7 @@
     <WasmShellMonoRuntimeExecutionMode>Interpreter</WasmShellMonoRuntimeExecutionMode>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <WasmShellMonoRuntimeExecutionMode>FullAOT</WasmShellMonoRuntimeExecutionMode>
+    <WasmShellMonoRuntimeExecutionMode>Interpreter</WasmShellMonoRuntimeExecutionMode>
   </PropertyGroup>
 
   <ItemGroup>
@@ -59,6 +59,11 @@
   <ItemGroup>
     <Compile Include="..\FlappyBird\Game\**\*.cs" Link="Game\%(RecursiveDir)\%(Filename)%(Extension)" />
     <EmbeddedResource Include="..\FlappyBird\Media\**\*" Link="Media\%(RecursiveDir)\%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="favicon.ico" />
+    <Content Include="favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
