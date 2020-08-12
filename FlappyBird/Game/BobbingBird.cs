@@ -1,7 +1,7 @@
-﻿using FlappyBird.GameEngine;
-using SkiaSharp;
-using System;
+﻿using System;
 using System.Linq;
+using FlappyBird.GameEngine;
+using SkiaSharp;
 
 namespace FlappyBird
 {
@@ -98,12 +98,21 @@ namespace FlappyBird
 			using var save = new SKAutoCanvasRestore(canvas, true);
 
 			var bird = birdAnimation.Frames[birdAnimation.CurrentFrame];
+			var bounds = GetBounds(x, y);
 
-			x -= Width / 2f;
-			y += BobOffset;
+			canvas.Translate(bounds.Left, bounds.Top);
+			canvas.RotateDegrees(angle, Width / 2f, Height / 2f);
 
-			canvas.RotateDegrees(angle, x + Width / 2f, y + Height / 2f);
-			bird.Draw(canvas, x, y);
+			bird.Draw(canvas, 0, 0);
+		}
+
+		public SKRect GetBounds(float x, float y)
+		{
+			var bird = birdAnimation.Frames[birdAnimation.CurrentFrame];
+
+			var pos = new SKPoint(x - Width / 2f, y + BobOffset);
+
+			return SKRect.Create(pos, bird.Size);
 		}
 	}
 }

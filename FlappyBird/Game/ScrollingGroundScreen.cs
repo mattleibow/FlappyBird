@@ -58,12 +58,9 @@ namespace FlappyBird
 				scrollPosition %= Game.DisplaySize.Width;
 			}
 
-			if (interactiveMode)
-			{
-				// move the bird up/down
-				speed = Math.Min(speed + acceleration, BobbingBird.MaxSpeed);
-				playerPos.Y += speed * secs;
-			}
+			// move the bird up/down
+			speed = Math.Min(speed + acceleration, BobbingBird.MaxSpeed);
+			playerPos.Y += speed * secs;
 
 			// rotate to the direction of travel
 			angle += angleChange;
@@ -103,6 +100,21 @@ namespace FlappyBird
 
 		protected virtual void DrawForeground(SKCanvas canvas)
 		{
+		}
+
+		protected SKRect GetPlayerBounds(bool collision = false)
+		{
+			var bounds = bobbingBird.GetBounds(playerPos.X, playerPos.Y);
+
+			if (collision)
+			{
+				bounds.Left += 8;
+				bounds.Right -= 12;
+				bounds.Top += 12;
+				bounds.Bottom -= 12;
+			}
+
+			return bounds;
 		}
 	}
 }

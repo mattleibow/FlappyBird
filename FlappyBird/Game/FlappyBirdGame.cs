@@ -37,6 +37,7 @@ namespace FlappyBird
 		private void StartNewGame(object sender, EventArgs e)
 		{
 			var screen = new GameScreen(this, spriteSheet);
+			screen.PlayTapped += StartNewGame;
 
 			TransisionTo(screen);
 		}
